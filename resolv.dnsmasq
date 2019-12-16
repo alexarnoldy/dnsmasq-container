@@ -1,0 +1,2 @@
+# Pointing to localhost allows the upstream DNS server to be set by this container's host
+nameserver 127.0.0.1

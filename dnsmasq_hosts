@@ -1,0 +1,15 @@
+# Update as appropriate to suit the environment
+## VM that serves as landing pad 
+172.16.240.50           jumphost
+
+## Infrastructure containers that run on jumphost
+172.16.240.47           registry	
+172.16.240.48           ntp	
+172.16.240.49           dns	#The IP on the jumphost that is presenting this container	
+
+## Bare metal hosts
+172.16.240.51           infra1
+172.16.240.52           infra2
+172.16.240.53           infra3
+172.16.240.54           infra4
+
