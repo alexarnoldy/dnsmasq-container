@@ -8,6 +8,8 @@
 
 * Set this variable to the IP address dnsmasq should listen on: `export DNS_IP=`
 
+* Set this variable to the directory containing this repo: `export CONF_DIR=`
+
 * Make sure the IP address is correctly configured on this host:  `ip a | grep -B2 "$DNS_IP"`
 
 * Run the container:  
