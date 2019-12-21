@@ -1,4 +1,6 @@
-### State of this project is Incomplete, Work In Progress.
+### State of this project: Getting much better. DNS and DHCP both seem stable
+
+IMPORTANT: If DHCP server doesn't respond to clients, ensure server, client, nor intermediate networks are blocking DHCP ports.
 
 * Clone this repo to the target server
 
