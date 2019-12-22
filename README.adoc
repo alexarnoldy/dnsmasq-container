@@ -2,9 +2,9 @@
 
 IMPORTANT: If DHCP server doesn't respond to clients, ensure the server's firewall is not blocking port. Other things that commonly affect the DHCP server include AppArmor, SELinux, network firewalls, and NAT routers.
 
-* Clone this repo to the target server
+* Clone this repo to the target server: `git clone https://github.com/alexarnoldy/opensuse-dnsmasq-container.git && cd $_`
 
-* cd into the cloned directory and update the dnsmasq.conf, dnsmasq_hosts, and resolv.dnsmasq files to suit your environment
+* Update the dnsmasq.conf, dnsmasq_hosts, and resolv.dnsmasq files to suit your environment
 
 * Build the container: `sudo podman build -t opensuse_dnsmasq_container:latest .`
 
