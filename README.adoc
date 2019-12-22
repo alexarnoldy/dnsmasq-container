@@ -16,13 +16,13 @@ IMPORTANT: If DHCP server doesn't respond to clients, ensure server, client, nor
 
 * Run a DNS only container:  
 ----
-docker run -d --restart=always --name opensuse-dnsmasq-container --mount type=bind,source=$CONF_DIR,target=/var/dnsmasq \
+docker run -d --name opensuse-dnsmasq-container --mount type=bind,source=$CONF_DIR,target=/var/dnsmasq \
 -p $DNS_IP:53:53/tcp -p $DNS_IP:53:53/udp --cap-add=NET_ADMIN opensuse_dnsmasq_container:latest
 ----
 
 * Run a DNS+DHCP container:  
 ----
-docker run -d --restart=always --name opensuse-dnsmasq-container --mount type=bind,source=$CONF_DIR,target=/var/dnsmasq \
+docker run -d --name opensuse-dnsmasq-container --mount type=bind,source=$CONF_DIR,target=/var/dnsmasq \
 -p $DNS_IP:53:53/tcp -p $DNS_IP:53:53/udp -p $DNS_IP:67:67/udp --cap-add=NET_ADMIN opensuse_dnsmasq_container:latest
 ----
 
