@@ -16,18 +16,22 @@ IMPORTANT: If DHCP server doesn't respond to clients, ensure server, client, nor
 
 * Run a DNS only container:  
 ----
-sudo docker run -d --name opensuse-dnsmasq-container --mount type=bind,source=$CONF_DIR,target=/var/dnsmasq \
--p $DNS_IP:53:53/tcp -p $DNS_IP:53:53/udp --cap-add=NET_ADMIN localhost/opensuse_dnsmasq_container:latest
+sudo docker run -d --name opensuse-dnsmasq-container \
+--mount type=bind,source=$CONF_DIR,target=/var/dnsmasq \
+-p $DNS_IP:53:53/tcp -p $DNS_IP:53:53/udp \
+--cap-add=NET_ADMIN --net host localhost/opensuse_dnsmasq_container:latest
 ----
 
 * Run a DNS+DHCP container:  
 ----
-sudo docker run -d --name opensuse-dnsmasq-container --mount type=bind,source=$CONF_DIR,target=/var/dnsmasq \
--p $DNS_IP:53:53/tcp -p $DNS_IP:53:53/udp -p $DNS_IP:67:67/udp --cap-add=NET_ADMIN localhost/opensuse_dnsmasq_container:latest
+sudo docker run -d --name opensuse-dnsmasq-container \
+--mount type=bind,source=$CONF_DIR,target=/var/dnsmasq \
+-p $DNS_IP:53:53/tcp -p $DNS_IP:53:53/udp -p $DNS_IP:67:67/udp \
+--cap-add=NET_ADMIN --net host localhost/opensuse_dnsmasq_container:latest
 ----
 
 .To update local DNS records or the dnsmasq configuration:  
-* Update caasp_hosts and/or dnsmasq.conf files (updating the resolv.dnsmasq requires rebuilding the container image)
+* Update dnsmasq_hosts and/or dnsmasq.conf files (updating the resolv.dnsmasq requires rebuilding the container image)
 * Restart the container: `docker restart caasp_dns`
 
 
