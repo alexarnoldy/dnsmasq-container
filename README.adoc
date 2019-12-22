@@ -2,6 +2,7 @@
 
 IMPORTANT: If DHCP server doesn't respond to clients, ensure the server's firewall is not blocking port. Other things that commonly affect the DHCP server include AppArmor, SELinux, network firewalls, and NAT routers.
 
+#### Create and deploy the DNS or DNS+DHCP container
 * Clone this repo to the target server: `git clone https://github.com/alexarnoldy/opensuse-dnsmasq-container.git && cd $_`
 
 * Update the dnsmasq.conf, dnsmasq_hosts, and resolv.dnsmasq files to suit your environment
@@ -30,11 +31,11 @@ sudo podman run -d --name opensuse-dnsmasq-container \
 --cap-add=NET_ADMIN --net host localhost/opensuse_dnsmasq_container:latest
 ----
 
-.To update local DNS records or the dnsmasq configuration:  
+#### To update local DNS records or the dnsmasq configuration:  
 * Update dnsmasq_hosts and/or dnsmasq.conf files (updating the resolv.dnsmasq requires rebuilding the container image)
 * Restart the container: `podman restart caasp_dns`
 
-.Troubleshooting
+#### Troubleshooting
 * Ensure the container is running: `sudo podman ps -a`
 ** The "STATUS" field should show the amount of time the container has been running
 ** If the STATUS is EXITED, run the command `sudo podman logs opensuse-dnsmasq-container` to see the error that stopped the container
@@ -42,8 +43,22 @@ sudo podman run -d --name opensuse-dnsmasq-container \
 ** `ss -npr --listening`
 * Ensure a server firewall isn't blocking the ports (Google for how to work with your firewall)
 * From another host in the same subnet, use nmap or telnet to see if the ports are available
-** I.e. `sudo nmap -sU <server IP>` for UDP ports and/or `sudo nmap -p 53 <server IP>` for DNS TCP port
-** I.e. `telnet <server IP> 53` for DNS TCP port
+** I.e. `sudo nmap -sU -p 67 --script=dhcp-discover <server IP>` for DHCP
+*** Note that a result of "67/udp open|filtered dhcps" means the DHCP server is not responding to requests
+*** Here is nn example of a valid DHCP server response:
+----
+67/udp open  dhcps
+| dhcp-discover: 
+|   DHCP Message Type: DHCPACK
+|   Server Identifier: 192.168.1.10
+|   Broadcast Address: 192.168.1.255
+|   Domain Name: example.com
+|   Domain Name Server: 192.168.1.10
+|   Router: 192.168.1.1
+|_  Subnet Mask: 255.255.255.0
+MAC Address: 52:54:00:93:EB:A1
+----
+** I.e. `sudo nmap -sT -sU -p 53 <server IP> for DNS TCP and UDP ports
 
 
 // vim: set syntax=asciidoc:
