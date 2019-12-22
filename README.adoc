@@ -6,11 +6,11 @@ IMPORTANT: If DHCP server doesn't respond to clients, ensure the server's firewa
 
 * Update the dnsmasq.conf, dnsmasq_hosts, and resolv.dnsmasq files to suit your environment
 
-* Build the container: `sudo podman build -t opensuse_dnsmasq_container:latest .`
+* Build the container: `sudo podman build -t localhost/opensuse_dnsmasq_container:latest .`
 
 * Set this variable to the IP address dnsmasq should listen on: `export DNS_IP=`
 
-* Set this variable to the directory containing this repo: `export CONF_DIR=${PWD}`
+* Set this variable this repo diretory (alternately, to a directory containing the appropriate dnsmasq.conf, dnsmasq_hosts, and resolv.dnsmasq files): `export CONF_DIR=${PWD}`
 
 * Make sure the IP address is correctly configured on this host:  `ip a | grep -B2 "$DNS_IP"`
 
@@ -34,6 +34,16 @@ sudo podman run -d --name opensuse-dnsmasq-container \
 * Update dnsmasq_hosts and/or dnsmasq.conf files (updating the resolv.dnsmasq requires rebuilding the container image)
 * Restart the container: `podman restart caasp_dns`
 
+.Troubleshooting
+* Ensure the container is running: `sudo podman ps -a`
+** The "STATUS" field should show the amount of time the container has been running
+** If the STATUS is EXITED, run the command `sudo podman logs opensuse-dnsmasq-container` to see the error that stopped the container
+* Check to see if the host is monitoring the DNS (53/tcp and 53/udp) and/or DHCP (67/udp) port on the correct IP address: 
+** `ss -npr --listening`
+* Ensure a server firewall isn't blocking the ports (Google for how to work with your firewall)
+* From another host in the same subnet, use nmap or telnet to see if the ports are available
+** I.e. `sudo nmap -sU <server IP>` for UDP ports and/or `sudo nmap -p 53 <server IP>` for DNS TCP port
+** I.e. `telnet <server IP> 53` for DNS TCP port
 
 
 // vim: set syntax=asciidoc:
