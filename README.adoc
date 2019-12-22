@@ -1,22 +1,22 @@
 ### State of this project: Getting much better. DNS and DHCP both seem stable
 
-IMPORTANT: If DHCP server doesn't respond to clients, ensure server, client, nor intermediate networks are blocking DHCP ports.
+IMPORTANT: If DHCP server doesn't respond to clients, ensure the server's firewall is not blocking port. Other things that commonly affect the DHCP server include AppArmor, SELinux, network firewalls, and NAT routers.
 
 * Clone this repo to the target server
 
-* Update the dnsmasq.conf, dnsmasq_hosts, and resolv.dnsmasq files to suit your environment
+* cd into the cloned directory and update the dnsmasq.conf, dnsmasq_hosts, and resolv.dnsmasq files to suit your environment
 
-* Build the container: `sudo docker build -t opensuse_dnsmasq_container:latest .`
+* Build the container: `sudo podman build -t opensuse_dnsmasq_container:latest .`
 
 * Set this variable to the IP address dnsmasq should listen on: `export DNS_IP=`
 
-* Set this variable to the directory containing this repo: `export CONF_DIR=`
+* Set this variable to the directory containing this repo: `export CONF_DIR=${PWD}`
 
 * Make sure the IP address is correctly configured on this host:  `ip a | grep -B2 "$DNS_IP"`
 
 * Run a DNS only container:  
 ----
-sudo docker run -d --name opensuse-dnsmasq-container \
+sudo podman run -d --name opensuse-dnsmasq-container \
 --mount type=bind,source=$CONF_DIR,target=/var/dnsmasq \
 -p $DNS_IP:53:53/tcp -p $DNS_IP:53:53/udp \
 --cap-add=NET_ADMIN --net host localhost/opensuse_dnsmasq_container:latest
@@ -24,7 +24,7 @@ sudo docker run -d --name opensuse-dnsmasq-container \
 
 * Run a DNS+DHCP container:  
 ----
-sudo docker run -d --name opensuse-dnsmasq-container \
+sudo podman run -d --name opensuse-dnsmasq-container \
 --mount type=bind,source=$CONF_DIR,target=/var/dnsmasq \
 -p $DNS_IP:53:53/tcp -p $DNS_IP:53:53/udp -p $DNS_IP:67:67/udp \
 --cap-add=NET_ADMIN --net host localhost/opensuse_dnsmasq_container:latest
@@ -32,7 +32,7 @@ sudo docker run -d --name opensuse-dnsmasq-container \
 
 .To update local DNS records or the dnsmasq configuration:  
 * Update dnsmasq_hosts and/or dnsmasq.conf files (updating the resolv.dnsmasq requires rebuilding the container image)
-* Restart the container: `docker restart caasp_dns`
+* Restart the container: `podman restart caasp_dns`
 
 
 
