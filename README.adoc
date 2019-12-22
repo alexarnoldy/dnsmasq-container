@@ -47,7 +47,7 @@ sudo podman run -d --name opensuse-dnsmasq-container \
 *** Note: For TCP ports only
 ** I.e. `sudo nmap -sT -sU -p 53 <server IP> for DNS TCP and UDP ports
 ** I.e. `sudo nmap -sU -p 67 --script=dhcp-discover <server IP>` for DHCP
-*** Note that a result of "67/udp open|filtered dhcps" means the DHCP server is not responding to requests
+*** Note that a result of "67/udp open|filtered dhcps" means the port is monitored but the DHCP server is not responding to requests
 *** Example of a valid DHCP server response:
 ----
 67/udp open  dhcps
