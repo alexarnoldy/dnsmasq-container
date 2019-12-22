@@ -1,6 +1,6 @@
 ### State of this project: Getting much better. DNS and DHCP both seem stable
 
-IMPORTANT: If DHCP server doesn't respond to clients, ensure the server's firewall is not blocking port. Other things that commonly affect the DHCP server include AppArmor, SELinux, network firewalls, and NAT routers.
+IMPORTANT: If DHCP server doesn't respond to clients, ensure the server's firewall is not blocking port. Other things that commonly affect the DHCP server include AppArmor, SELinux, network firewalls, and NAT routers. See the Troubleshooting section below for more information.
 
 #### Create and deploy the DNS or DNS+DHCP container
 * Clone this repo to the target server: `git clone https://github.com/alexarnoldy/opensuse-dnsmasq-container.git && cd $_`
