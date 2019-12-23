@@ -2,6 +2,8 @@
 
 IMPORTANT: If the DHCP server doesn't respond to clients, ensure the server's firewall is not blocking port 67/udp. Other things that commonly affect the DHCP server include AppArmor, SELinux, network firewalls, and NAT routers. See the Troubleshooting section below for more information.
 
+CAUTION: Deploying a DHCP service on a subnet that already has one can cause mind-numbingly-difficult-to-troubleshoot hassles and make the offender surprisingly unpopular. See the Troubleshooting section below to verify that no other DHCP services are running on your subnet.
+
 #### Create and deploy the DNS or DNS+DHCP container
 * Clone this repo to the target server: `git clone https://github.com/alexarnoldy/opensuse-dnsmasq-container.git && cd $_`
 
