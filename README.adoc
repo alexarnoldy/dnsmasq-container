@@ -15,7 +15,7 @@ CAUTION: Deploying DHCP services on a subnet that already has them can cause min
 
 * Set this variable this repo diretory (alternately, to a directory containing the appropriate dnsmasq.conf, dnsmasq_hosts, and resolv.dnsmasq files): `export CONF_DIR=${PWD}`
 
-* Make sure the IP address is correctly configured on this host:  `ip a | grep -B2 "$DNS_IP"`
+* Make sure the IP address is correctly configured on this host:  `ip a | grep -B2 ${DNS_IP}`
 
 * Run a DNS only container:  
 ----
@@ -32,6 +32,7 @@ sudo podman run -d --name opensuse-dnsmasq-container \
 -p $DNS_IP:53:53/tcp -p $DNS_IP:53:53/udp -p $DNS_IP:67:67/udp \
 --cap-add=NET_ADMIN --net host localhost/opensuse_dnsmasq_container:latest
 ----
+
 
 #### To update local DNS records or the dnsmasq configuration:  
 * Update dnsmasq_hosts and/or dnsmasq.conf files (updating the resolv.dnsmasq requires rebuilding the container image)
