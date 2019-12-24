@@ -34,9 +34,9 @@ sudo podman run -d --name opensuse-dnsmasq-container \
 ----
 
 
-#### To update local DNS records or the dnsmasq configuration:  
+#### Updates to the local DNS records or the dnsmasq configuration require restarting the container:  
 * Update dnsmasq_hosts and/or dnsmasq.conf files (updating the resolv.dnsmasq requires rebuilding the container image)
-* Restart the container: `podman restart caasp_dns`
+* Restart the container: `podman restart opensuse-dnsmasq-container`
 
 #### Troubleshooting
 * Ensure the container is running: `sudo podman ps -a`
