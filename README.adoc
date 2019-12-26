@@ -4,6 +4,8 @@ IMPORTANT: If the DHCP server doesn't respond to clients, ensure the server's fi
 
 CAUTION: Deploying DHCP services on a subnet that already has them can cause mind-numbingly-difficult-to-troubleshoot problems and make the offender surprisingly unpopular for generations to come. See the Troubleshooting section below to verify that no other DHCP services are running on your subnet.
 
+#### This container requires podman and optionally nmap and/or telnet to be installed on the target server
+
 #### Create and deploy the DNS or DNS+DHCP container
 * Clone this repo to the target server: `git clone https://github.com/alexarnoldy/opensuse-dnsmasq-container.git && cd opensuse-dnsmasq-container`
 
