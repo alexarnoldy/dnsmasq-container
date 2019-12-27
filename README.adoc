@@ -35,10 +35,16 @@ sudo podman run -d --name opensuse-dnsmasq-container \
 --cap-add=NET_ADMIN --net host localhost/opensuse_dnsmasq_container:latest
 ----
 
+* Copy the opensuse-dnsmasq.service systemd file into place: `sudo cp -p opensuse-dnsmasq.service /etc/systemd/system/`
+* Reload systemd: `sudo systemctl daemon-reload`
+* Start and enable the systemd opensuse-dnsmasq.service: `sudo systemctl --now enable opensuse-dnsmasq.service`
+* Check the status of the opensuse-dnsmasq.service: `systemctl status opensuse-dnsmasq.service`
+* Check that the ports are being monitored: `ss -npr --listening`
+
 
 #### Updates to the local DNS records or the dnsmasq configuration require restarting the container:  
-* Update dnsmasq_hosts and/or dnsmasq.conf files (updating the resolv.dnsmasq requires rebuilding the container image)
-* Restart the container: `podman restart opensuse-dnsmasq-container`
+* Update dnsmasq_hosts and/or dnsmasq.conf files 
+* Restart the container: `sudo podman restart opensuse-dnsmasq-container`
 
 #### Troubleshooting
 * Ensure the container is running: `sudo podman ps -a`
