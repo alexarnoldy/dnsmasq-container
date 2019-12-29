@@ -76,6 +76,10 @@ MAC Address: 52:54:00:93:EB:A1
 ** I.e. `sudo nmap -sU -p 67 --script=dhcp-discover 192.168.1.0/24 | less`
 *** May take 10 minutes or more to complete. Press Enter to get a guesstimate of when nmap will finish
 
+NOTE: To make DNS-only service HA, run multiple instances in the same subnet with identical configurations. Run an instance of https://github.com/alexarnoldy/opensuse-keepalived-container with each to manage a virtual IP address. Updates must be made to all instances and all instances must be restarted. Failure to do so will lead to inconsistent results.
+
+NOTE: To make DNS+DHCP service HA, run multiple instances in the same subnet with identical configurations, except for dhcp-range, which must be unique for each instance. Run an instance of https://github.com/alexarnoldy/opensuse-keepalived-container with each to manage a virtual IP address. Updates must be made to all instances and all instances must be restarted. Failure to do so will lead to inconsistent results
+
 
 // vim: set syntax=asciidoc:
 
