@@ -9,6 +9,8 @@ CAUTION: Deploying DHCP services on a subnet that already has them can cause min
 #### Create and deploy the DNS or DNS+DHCP container
 * Clone this repo to the target server: `git clone https://github.com/alexarnoldy/opensuse-dnsmasq-container.git && cd opensuse-dnsmasq-container`
 
+* (Optional) Remove the .git directory since the entire directory will end up inside the container image to make it portable: `rm -r .git`
+
 * Update the dnsmasq.conf and dnsmasq_hosts files to suit your environment
 
 * Build the container: `sudo podman build -t localhost/opensuse_dnsmasq_container:latest .`
