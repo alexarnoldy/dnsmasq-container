@@ -1,5 +1,7 @@
 ### State of this project: Getting much better. DNS and DHCP both seem stable
 
+CAUTION: This service runs as a privileged container, with all of the security concerns therin. The author, nor any person or companies associated with him/her/them/it, make any guarantee as to the safety, security, functionality, taste and/or smell of this project. Use at your own risk.
+
 IMPORTANT: If the DHCP server doesn't respond to clients, ensure the server's firewall is not blocking port 67/udp. Other things that commonly affect the DHCP server include AppArmor, SELinux, network firewalls, and NAT routers. See the Troubleshooting section below for more information.
 
 CAUTION: Deploying DHCP services on a subnet that already has them can cause mind-numbingly-difficult-to-troubleshoot problems and make the offender surprisingly unpopular for generations to come. See the Troubleshooting section below to verify that no other DHCP services are running on your subnet.
