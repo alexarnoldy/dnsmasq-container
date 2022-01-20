@@ -76,9 +76,16 @@ sudo podman run -d --name opensuse-dnsmasq-container \
 |_  Subnet Mask: 255.255.255.0
 MAC Address: 52:54:00:93:EB:A1
 ----
-* To detect DHCP servers on a subnet `sudo nmap -sU -p 67 --script=dhcp-discover <network>/<CIDR mask> | less` 
-** I.e. `sudo nmap -sU -p 67 --script=dhcp-discover 192.168.1.0/24 | less`
-*** May take 10 minutes or more to complete. Press Enter to get a guesstimate of when nmap will finish
+* To detect all DHCP servers on a subnet: 
+** Find all servers that show port 67 as open: `sudo nmap -sU -p 67 --script=dhcp-discover <network>/<CIDR mask> | grep -B4 open > /tmp/dhcp.out` 
+*** I.e. `sudo nmap -sU -p 67 --script=dhcp-discover 172.16.240.0/24 | grep -B4 open > /tmp/dhcp.out`
+** Set this variable to the first three octets of the subnet: `export FIRST_THREE=""`
+*** I.e. `FIRST_THREE="172.16.240"`
+** Query each node that showed an open port in the subnet scan: `for EACH in $(grep ${FIRST_THREE} /tmp/dhcp.out  | awk '{print$5}'); do echo ${EACH}; sudo nmap -sU -p 67 --script=dhcp-discover ${EACH}; done | less` 
+*** This output is piped to less where you can search for DHCPACK
+*** Each server that returns the an output similar to the one above is offering DHCP addresses
+
+NOTE: Some scans may take 10 minutes or more to complete. Press Enter to get a guesstimate of when nmap will finish
 
 NOTE: To make DNS-only service HA, run multiple instances in the same subnet with identical configurations. Run an instance of https://github.com/alexarnoldy/opensuse-keepalived-container with each to manage a virtual IP address. Updates must be made to all instances and all instances must be restarted. Failure to do so will lead to inconsistent results.
 
