@@ -8,7 +8,8 @@ CAUTION: Deploying DHCP services on a subnet that already has them can cause min
 
 #### This container requires podman and optionally nmap and/or telnet to be installed on the target server
 
-#### Create and deploy the DNS or DNS+DHCP container
+### Create and deploy the DNS or DNS+DHCP container
+
 * Clone this repo to the target server: `git clone https://github.com/alexarnoldy/opensuse-dnsmasq-container.git && cd opensuse-dnsmasq-container`
 
 * (Optional) Remove the .git directory since the entire directory will end up inside the container image to make it portable: `rm -r .git`
@@ -50,7 +51,8 @@ sudo podman run -d --name opensuse-dnsmasq-container \
 * Update dnsmasq_hosts and/or dnsmasq.conf files 
 * Restart the container: `sudo podman restart opensuse-dnsmasq-container`
 
-#### Troubleshooting
+## Troubleshooting
+
 * Ensure the container is running: `sudo podman ps -a`
 ** The "STATUS" field should show the amount of time the container has been running
 ** If the STATUS is EXITED, run the command `sudo podman logs opensuse-dnsmasq-container` to see the error that stopped the container
