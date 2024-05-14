@@ -1,4 +1,4 @@
-FROM registry.opensuse.org/opensuse/leap:15.2
+FROM registry.opensuse.org/opensuse/leap:15.5
 MAINTAINER "alex.arnoldy@suse.com"
 
 # This adds the container config into the container image so it can be moved around manually, if desired.
