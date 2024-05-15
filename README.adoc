@@ -59,11 +59,12 @@ sudo podman run -d --name opensuse-dnsmasq-container \
 * Check to see if the host is monitoring the DNS (53/tcp and 53/udp) and/or DHCP (67/udp) port on the correct IP address: 
 ** `ss -npr --listening`
 * Ensure a server firewall isn't blocking the ports (Google for how to work with your firewall)
-* From another host in the same subnet, use telnet or nmap to see if the ports are available
-** I.e. `telnet <server> IP 53` for DNS
-*** Note: For TCP ports only
-** I.e. `sudo nmap -sT -sU -p 53 <server IP> for DNS TCP and UDP ports
-** I.e. `sudo nmap -sU -p 67 --script=dhcp-discover <server IP>` for DHCP
+* From another host in the same subnet, use telnet, nmap or nc to see if the ports are available
+** E.g. `telnet <server> IP 53`
+** E.g. `nc -v <server IP> 53`
+*** Note: For DNS TCP ports only
+** E.g. `sudo nmap -sT -sU -p 53 <server IP>` for DNS TCP and UDP ports
+** E.g. `sudo nmap -sU -p 67 --script=dhcp-discover <server IP>` for DHCP
 *** Note that a result of "67/udp open|filtered dhcps" means the port is monitored but the DHCP server is not responding to requests
 *** Example of a valid DHCP server response:
 ----
