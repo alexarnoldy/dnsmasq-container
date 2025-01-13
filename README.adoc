@@ -80,6 +80,7 @@ sudo podman run -d --name opensuse-dnsmasq-container \
 MAC Address: 52:54:00:93:EB:A1
 ----
 * To detect all DHCP servers on a subnet: 
+** First try: `nmap --script broadcast-dhcp-discover`, that doesn't work, try the steps below
 ** Find all servers that show port 67 as open: `sudo nmap -sU -p 67 --script=dhcp-discover <network>/<CIDR mask> | grep -B4 open > /tmp/dhcp.out` 
 *** I.e. `sudo nmap -sU -p 67 --script=dhcp-discover 172.16.240.0/24 | grep -B4 open > /tmp/dhcp.out`
 ** Set this variable to the first three octets of the subnet: `export FIRST_THREE=""`
